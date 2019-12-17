@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${comments}</title>
+	#set($header='<#include "/header.html">')
+	#set($save='<#if shiro.hasPermission("'+${pathName}+':save")>')
+	#set($update='<#if shiro.hasPermission("'+${pathName}+':update")>')
+	#set($delete='<#if shiro.hasPermission("'+${pathName}+':delete")>')
+	#set($end='</#if>')
+	$header
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/detail.css">
+</head>
+<body>
+<div id="detail" v-cloak>
+    <div>
+        <div class="content-box" style="margin-bottom:18px">
+            <div class="" style="margin-top: 25px">
+			#foreach($column in $columns)
+				#if($column.columnName != $pk.columnName)
+                    <div class="row-div">
+                        <div class="col-name">${column.comments}</div>
+                        <div class="col-text" v-text="${classname}.${column.attrname}"></div>
+                    </div>
+				#end
+			#end
+                <div class="row-div" style="margin-top: 25px">
+                    <div class="col-name"></div>
+                    <div class="col-text">
+                        &nbsp;&nbsp;<input type="button" class="yyt-btn yyt-btn-normal" onclick="goBackPage();"  value="返回"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/${moduleName}/${pathName}.js?_${.now?long}"></script>
+</body>
+</html>
